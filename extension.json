@@ -1,0 +1,13 @@
+{
+  "id": "builtin.vscode-icons",
+  "name": "VSCode Icons",
+  "description": "Icons for Visual Studio Code",
+  "icon": "./icon.png",
+  "iconThemes": [
+    {
+      "id": "vscode-icons",
+      "label": "VSCode Icons",
+      "path": "icon-theme.json"
+    }
+  ]
+}
