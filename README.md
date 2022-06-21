@@ -1,6 +1,6 @@
 # VSCode Icons
 
-Nice icons for lots of file types and languages.
+Icons for lots of file types and languages.
 
 ## Contributing
 
