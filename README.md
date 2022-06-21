@@ -17,4 +17,4 @@ npm test
 
 ## Credits
 
-Extension is based on https://github.com/vscode-icons/vscode-icons by the vscode-icons team (License MIT).
+Extension is based on https://github.com/vscode-icons/vscode-icons by the vscode-icons team, the icons are licensed under the Creative Commons - ShareAlike (CC BY-SA) license, branded icons are licensed under their copyright license.
