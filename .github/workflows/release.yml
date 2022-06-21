@@ -4,7 +4,7 @@ name: release
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - "v[0-9]+.[0-9]+.[0-9]+"
 jobs:
   create-release:
     name: create-release
@@ -30,17 +30,17 @@ jobs:
 
   build-release:
     name: build-release
-    needs: ['create-release']
+    needs: ["create-release"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '18.3.0'
+          node-version: "18.3.0"
       - uses: actions/cache@v3
         id: npm-cache
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
       - name: npm ci
@@ -52,7 +52,7 @@ jobs:
       - name: Build archive
         shell: bash
         run: |
-          staging="language-basics-css-${{ needs.create-release.outputs.rg_version }}"
+          staging="vscode-icons-${{ needs.create-release.outputs.rg_version }}"
           mv "extension.tar.br" "$staging.tar.br"
           echo "ASSET=$staging.tar.br" >> $GITHUB_ENV
 
