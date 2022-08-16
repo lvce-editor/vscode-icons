@@ -9,7 +9,7 @@ import { pipeline } from 'stream/promises'
 import { fileURLToPath } from 'url'
 import VError from 'verror'
 
-const VERSION = '11.12.0'
+const VERSION = '11.15.0'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const outFileZip = resolve(__dirname, '../.tmp/extension.zip')
@@ -115,22 +115,39 @@ const copyIcons = async () => {
   )
 }
 
+const printError = (error) => {
+  if (
+    error &&
+    error instanceof Error &&
+    error.message.includes('Response code 429')
+  ) {
+    console.error(error.message)
+  } else {
+    console.error(error)
+  }
+}
+
 const main = async () => {
-  console.time('downloadExtension')
-  await downloadExtension()
-  console.timeEnd('downloadExtension')
+  try {
+    console.time('downloadExtension')
+    await downloadExtension()
+    console.timeEnd('downloadExtension')
 
-  console.time('extractExtension')
-  await extractExtension()
-  console.timeEnd('extractExtension')
+    console.time('extractExtension')
+    await extractExtension()
+    console.timeEnd('extractExtension')
 
-  console.time('generateIconJson')
-  await generateIconJson()
-  console.timeEnd('generateIconJson')
+    console.time('generateIconJson')
+    await generateIconJson()
+    console.timeEnd('generateIconJson')
 
-  console.time('copyIcons')
-  await copyIcons()
-  console.timeEnd('copyIcons')
+    console.time('copyIcons')
+    await copyIcons()
+    console.timeEnd('copyIcons')
+  } catch (error) {
+    printError(error)
+    process.exit(1)
+  }
 }
 
 main()
