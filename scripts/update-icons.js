@@ -9,7 +9,7 @@ import { pipeline } from 'stream/promises'
 import { fileURLToPath } from 'url'
 import VError from 'verror'
 
-const VERSION = '11.13.0'
+const VERSION = '11.15.0'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const outFileZip = resolve(__dirname, '../.tmp/extension.zip')
