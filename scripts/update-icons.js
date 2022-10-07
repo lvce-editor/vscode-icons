@@ -1,12 +1,12 @@
-import extractZip from 'extract-zip'
-import { createWriteStream, existsSync } from 'fs'
-import fsExtra from 'fs-extra'
-import { mkdir, rm } from 'fs/promises'
-import got from 'got'
+import { createWriteStream, existsSync } from 'node:fs'
+import { mkdir, rm } from 'node:fs/promises'
+import { dirname, resolve } from 'node:path'
+import { pipeline } from 'node:stream/promises'
+import { fileURLToPath } from 'node:url'
 import jsonfile from 'jsonfile'
-import { dirname, resolve } from 'path'
-import { pipeline } from 'stream/promises'
-import { fileURLToPath } from 'url'
+import got from 'got'
+import fsExtra from 'fs-extra'
+import extractZip from 'extract-zip'
 import VError from 'verror'
 
 const VERSION = '11.17.0'
@@ -25,6 +25,7 @@ const download = async (url, outFile) => {
     } catch {
       // ignore
     }
+
     // @ts-ignore
     throw new VError(error, `failed to download ${url}`)
   }
@@ -35,6 +36,7 @@ const downloadExtension = async () => {
     console.info('[download skipped]')
     return
   }
+
   await download(
     `https://marketplace.visualstudio.com/_apis/public/gallery/publishers/vscode-icons-team/vsextensions/vscode-icons/${VERSION}/vspackage`,
     outFileZip
@@ -57,9 +59,10 @@ const extractExtension = async () => {
 
 const adjustJson = (json) => {
   const iconDefinitions = Object.fromEntries(
-    Object.entries(json.iconDefinitions).map(([key, value]) => {
-      return [key, value.iconPath.slice(5)]
-    })
+    Object.entries(json.iconDefinitions).map(([key, value]) => [
+      key,
+      value.iconPath.slice(5),
+    ])
   )
   const fileNames = json.fileNames
   const folderNames = json.folderNames
