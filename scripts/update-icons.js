@@ -9,7 +9,7 @@ import fsExtra from 'fs-extra'
 import extractZip from 'extract-zip'
 import VError from 'verror'
 
-const VERSION = '11.17.0'
+const VERSION = '11.19.0'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const outFileZip = resolve(__dirname, `../.tmp/extension-${VERSION}.zip`)
