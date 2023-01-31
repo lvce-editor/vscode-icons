@@ -3653,6 +3653,8 @@
     "yaml-tmlanguage": "_f_yaml",
     "spring-boot-properties-yaml": "_f_yaml",
     "yang": "_f_yang",
-    "zig": "_f_zig"
+    "zig": "_f_zig",
+    "jsx": "_f_reactjs",
+    "tsx": "_f_reactts"
   }
 }
