@@ -69,6 +69,12 @@ const adjustJson = (json) => {
   const folderNamesExpanded = json.folderNamesExpanded
   const fileExtensions = json.fileExtensions
   const languageIds = json.languageIds
+  if (languageIds['javascriptreact']) {
+    languageIds['jsx'] = languageIds['javascriptreact']
+  }
+  if (languageIds['typescriptreact']) {
+    languageIds['tsx'] = languageIds['typescriptreact']
+  }
   return {
     iconDefinitions,
     fileNames,
