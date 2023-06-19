@@ -9,7 +9,7 @@ import fsExtra from 'fs-extra'
 import extractZip from 'extract-zip'
 import VError from 'verror'
 
-const VERSION = '12.2.0'
+const VERSION = '12.4.0'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const outFileZip = resolve(__dirname, `../.tmp/extension-${VERSION}.zip`)
@@ -20,6 +20,7 @@ const download = async (url, outFile) => {
     await mkdir(dirname(outFile), { recursive: true })
     await pipeline(got.stream(url), createWriteStream(outFile))
   } catch (error) {
+    console.log({ error })
     try {
       await rm(outFile)
     } catch {
