@@ -9,7 +9,7 @@ import fsExtra from 'fs-extra'
 import extractZip from 'extract-zip'
 import VError from 'verror'
 
-const VERSION = '12.4.0'
+const VERSION = '12.5.0'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const outFileZip = resolve(__dirname, `../.tmp/extension-${VERSION}.zip`)
@@ -40,7 +40,7 @@ const downloadExtension = async () => {
 
   await download(
     `https://marketplace.visualstudio.com/_apis/public/gallery/publishers/vscode-icons-team/vsextensions/vscode-icons/${VERSION}/vspackage`,
-    outFileZip
+    outFileZip,
   )
 }
 
@@ -63,7 +63,7 @@ const adjustJson = (json) => {
     Object.entries(json.iconDefinitions).map(([key, value]) => [
       key,
       value.iconPath.slice(5),
-    ])
+    ]),
   )
   const fileNames = json.fileNames
   const folderNames = json.folderNames
@@ -96,8 +96,8 @@ const generateIconJson = async () => {
       'extension',
       'dist',
       'src',
-      'vsicons-icon-theme.json'
-    )
+      'vsicons-icon-theme.json',
+    ),
   )
   const adjustedJson = adjustJson(originalJson)
   await jsonfile.writeFile(
@@ -105,7 +105,7 @@ const generateIconJson = async () => {
     adjustedJson,
     {
       spaces: 2,
-    }
+    },
   )
 }
 
@@ -121,7 +121,7 @@ const copy = async (source, destination) => {
 const copyIcons = async () => {
   await copy(
     resolve(__dirname, '..', '.tmp', 'extension', 'extension', 'icons'),
-    resolve(__dirname, '..', 'icons')
+    resolve(__dirname, '..', 'icons'),
   )
 }
 
