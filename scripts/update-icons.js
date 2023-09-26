@@ -137,6 +137,10 @@ const printError = (error) => {
   }
 }
 
+const optimizeIcons = async () => {
+  await import('./optimize-icons.js')
+}
+
 const main = async () => {
   try {
     console.time('downloadExtension')
@@ -154,6 +158,10 @@ const main = async () => {
     console.time('copyIcons')
     await copyIcons()
     console.timeEnd('copyIcons')
+
+    console.time('optimizeIcons')
+    await optimizeIcons()
+    console.timeEnd('optimizeIcons')
   } catch (error) {
     printError(error)
     process.exit(1)
