@@ -1,13 +1,13 @@
+import { VError } from '@lvce-editor/verror'
+import extractZip from 'extract-zip'
+import fsExtra from 'fs-extra'
+import got from 'got'
+import jsonfile from 'jsonfile'
 import { createWriteStream, existsSync } from 'node:fs'
 import { mkdir, rm } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { pipeline } from 'node:stream/promises'
 import { fileURLToPath } from 'node:url'
-import jsonfile from 'jsonfile'
-import got from 'got'
-import fsExtra from 'fs-extra'
-import extractZip from 'extract-zip'
-import VError from 'verror'
 
 const VERSION = '12.5.0'
 
@@ -26,8 +26,6 @@ const download = async (url, outFile) => {
     } catch {
       // ignore
     }
-
-    // @ts-ignore
     throw new VError(error, `failed to download ${url}`)
   }
 }
@@ -49,7 +47,6 @@ const unzip = async (inFile, outDir) => {
     await mkdir(outDir, { recursive: true })
     await extractZip(inFile, { dir: outDir })
   } catch (error) {
-    // @ts-ignore
     throw new VError(error, `Failed to unzip "${inFile}"`)
   }
 }
@@ -113,7 +110,6 @@ const copy = async (source, destination) => {
   try {
     await fsExtra.copy(source, destination)
   } catch (error) {
-    // @ts-ignore
     throw new VError(error, `failed to copy ${source} to ${destination}`)
   }
 }
