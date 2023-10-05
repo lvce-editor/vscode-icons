@@ -1,15 +1,15 @@
+import { VError } from '@lvce-editor/verror'
+import extractZip from 'extract-zip'
+import fsExtra from 'fs-extra'
+import got from 'got'
+import jsonfile from 'jsonfile'
 import { createWriteStream, existsSync } from 'node:fs'
 import { mkdir, rm } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { pipeline } from 'node:stream/promises'
 import { fileURLToPath } from 'node:url'
-import jsonfile from 'jsonfile'
-import got from 'got'
-import fsExtra from 'fs-extra'
-import extractZip from 'extract-zip'
-import VError from 'verror'
 
-const VERSION = '12.2.0'
+const VERSION = '12.5.0'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const outFileZip = resolve(__dirname, `../.tmp/extension-${VERSION}.zip`)
@@ -20,13 +20,12 @@ const download = async (url, outFile) => {
     await mkdir(dirname(outFile), { recursive: true })
     await pipeline(got.stream(url), createWriteStream(outFile))
   } catch (error) {
+    console.log({ error })
     try {
       await rm(outFile)
     } catch {
       // ignore
     }
-
-    // @ts-ignore
     throw new VError(error, `failed to download ${url}`)
   }
 }
@@ -39,7 +38,7 @@ const downloadExtension = async () => {
 
   await download(
     `https://marketplace.visualstudio.com/_apis/public/gallery/publishers/vscode-icons-team/vsextensions/vscode-icons/${VERSION}/vspackage`,
-    outFileZip
+    outFileZip,
   )
 }
 
@@ -48,7 +47,6 @@ const unzip = async (inFile, outDir) => {
     await mkdir(outDir, { recursive: true })
     await extractZip(inFile, { dir: outDir })
   } catch (error) {
-    // @ts-ignore
     throw new VError(error, `Failed to unzip "${inFile}"`)
   }
 }
@@ -62,7 +60,7 @@ const adjustJson = (json) => {
     Object.entries(json.iconDefinitions).map(([key, value]) => [
       key,
       value.iconPath.slice(5),
-    ])
+    ]),
   )
   const fileNames = json.fileNames
   const folderNames = json.folderNames
@@ -95,8 +93,8 @@ const generateIconJson = async () => {
       'extension',
       'dist',
       'src',
-      'vsicons-icon-theme.json'
-    )
+      'vsicons-icon-theme.json',
+    ),
   )
   const adjustedJson = adjustJson(originalJson)
   await jsonfile.writeFile(
@@ -104,7 +102,7 @@ const generateIconJson = async () => {
     adjustedJson,
     {
       spaces: 2,
-    }
+    },
   )
 }
 
@@ -112,7 +110,6 @@ const copy = async (source, destination) => {
   try {
     await fsExtra.copy(source, destination)
   } catch (error) {
-    // @ts-ignore
     throw new VError(error, `failed to copy ${source} to ${destination}`)
   }
 }
@@ -120,7 +117,7 @@ const copy = async (source, destination) => {
 const copyIcons = async () => {
   await copy(
     resolve(__dirname, '..', '.tmp', 'extension', 'extension', 'icons'),
-    resolve(__dirname, '..', 'icons')
+    resolve(__dirname, '..', 'icons'),
   )
 }
 
@@ -134,6 +131,10 @@ const printError = (error) => {
   } else {
     console.error(error)
   }
+}
+
+const optimizeIcons = async () => {
+  await import('./optimize-icons.js')
 }
 
 const main = async () => {
@@ -153,6 +154,10 @@ const main = async () => {
     console.time('copyIcons')
     await copyIcons()
     console.timeEnd('copyIcons')
+
+    console.time('optimizeIcons')
+    await optimizeIcons()
+    console.timeEnd('optimizeIcons')
   } catch (error) {
     printError(error)
     process.exit(1)
