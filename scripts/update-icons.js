@@ -1,6 +1,7 @@
 import { VError } from '@lvce-editor/verror'
 import extractZip from 'extract-zip'
 import fsExtra from 'fs-extra'
+// @ts-ignore
 import got from 'got'
 import jsonfile from 'jsonfile'
 import { createWriteStream, existsSync } from 'node:fs'
