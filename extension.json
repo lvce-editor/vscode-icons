@@ -9,5 +9,6 @@
       "label": "VSCode Icons",
       "path": "icon-theme.json"
     }
-  ]
+  ],
+  "repository": "https://github.com/lvce-editor/vscode-icons"
 }
