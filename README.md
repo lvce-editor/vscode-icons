@@ -11,10 +11,6 @@ npm ci &&
 npm test
 ```
 
-## Gitpod
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/lvce-editor/vscode-icons)
-
 ## Credits
 
 Extension is based on https://github.com/vscode-icons/vscode-icons by the vscode-icons team, the icons are licensed under the Creative Commons - ShareAlike (CC BY-SA) license, branded icons are licensed under their copyright license.
