@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": ""
+    "test": "",
+    "lint": "eslint . && prettier --check ."
   },
   "keywords": [],
   "author": "",
