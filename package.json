@@ -5,29 +5,28 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "lint": "eslint . && prettier --check .",
+    "lint": "eslint . && prettier --check . && knip --no-config-hints",
     "test": "npm run lint"
   },
   "license": "MIT",
   "devDependencies": {
     "@lvce-editor/eslint-config": "^17.6.0",
+    "@lvce-editor/eslint-plugin-github-actions": "^17.6.0",
     "@lvce-editor/package-extension": "^3.2.0",
     "@lvce-editor/verror": "^1.7.0",
     "@types/fs-extra": "^11.0.4",
     "@types/jest": "^30.0.0",
     "@types/jsonfile": "^6.1.4",
     "@types/node": "^25.3.0",
-    "@types/verror": "^1.10.11",
     "eslint": "^10.8.0",
     "extract-zip": "^2.0.1",
     "fs-extra": "^11.3.3",
     "got": "^14.6.6",
-    "jest": "^30.2.0",
     "jsonfile": "^6.2.0",
+    "knip": "^6.29.0",
     "prettier": "^3.8.1",
     "svgo": "^4.0.0",
-    "typescript": "^6.0.0",
-    "verror": "^1.10.1"
+    "typescript": "^6.0.0"
   },
   "prettier": {
     "semi": false,
