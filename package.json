@@ -10,8 +10,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@lvce-editor/eslint-config": "^17.6.0",
-    "@lvce-editor/eslint-plugin-github-actions": "^17.6.0",
+    "@lvce-editor/eslint-config": "^18.0.0",
     "@lvce-editor/package-extension": "^3.2.0",
     "@lvce-editor/verror": "^1.7.0",
     "@types/fs-extra": "^11.0.4",
