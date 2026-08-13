@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint . && prettier --check . && knip --no-config-hints",
-    "test": "npm run lint"
+    "test": "node --test && npm run lint"
   },
   "license": "MIT",
   "devDependencies": {
