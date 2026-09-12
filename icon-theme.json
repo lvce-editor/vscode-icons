@@ -1647,6 +1647,8 @@
     "devvit.config.test.mjs": "_f_devvit",
     "devvit.config.test.ts": "_f_devvit",
     "devvit.config.test.mts": "_f_devvit",
+    "dockerfile": "_f_docker",
+    ".env.sample": "_f_dotenv",
     ".dockerignore": "_f_docker",
     "compose.yaml": "_f_docker",
     "compose.yml": "_f_docker",
