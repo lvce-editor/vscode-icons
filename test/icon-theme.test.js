@@ -15,3 +15,20 @@ test('maps Zig files to the Zig icon', async () => {
     readFile(new URL(`..${iconPath}`, import.meta.url)),
   )
 })
+
+for (const [fileName, iconType] of [
+  ['Dockerfile', 'docker'],
+  ['.env.sample', 'dotenv'],
+]) {
+  test(`maps ${fileName} to the ${iconType} icon without language contributions`, async () => {
+    const iconTheme = JSON.parse(await readFile(iconThemeUrl, 'utf8'))
+    const iconId = iconTheme.fileNames[fileName.toLowerCase()]
+    const iconPath = iconTheme.iconDefinitions[iconId]
+
+    assert.equal(iconId, `_f_${iconType}`)
+    assert.equal(iconPath, `/icons/file_type_${iconType}.svg`)
+    await assert.doesNotReject(
+      readFile(new URL(`..${iconPath}`, import.meta.url)),
+    )
+  })
+}
