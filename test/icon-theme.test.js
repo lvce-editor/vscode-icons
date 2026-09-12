@@ -27,6 +27,8 @@ for (const [fileName, iconType] of [
 
     assert.equal(iconId, `_f_${iconType}`)
     assert.equal(iconPath, `/icons/file_type_${iconType}.svg`)
-    await assert.doesNotReject(readFile(new URL(`..${iconPath}`, import.meta.url)))
+    await assert.doesNotReject(
+      readFile(new URL(`..${iconPath}`, import.meta.url)),
+    )
   })
 }
